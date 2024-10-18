@@ -15,5 +15,4 @@ jobs:
             fetch-depth: 0
       - name: 'Get the latest tag'
         id: latest-tag
-        uses: "WyriHaximus/github-
       ref_name: ${{ needs.get-latest-tag.outputs.tag }}

@@ -2,12 +2,11 @@
 on:
   push:
     branches:
-      - main
+      -
 name: release-please
 jobs:
   release-please:
     runs-on: ubuntu-latest
     outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-    steps:
-      - uses: googleapis/releas
+      release_
+    steps
