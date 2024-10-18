@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/cezar-r/finch/compare/v1.0.1...v1.0.2) (2024-10-18)
+
+
+### Bug Fixes
+
+* fix ([181c5ec](https://github.com/cezar-r/finch/commit/181c5ec3f33e6d0f752cf69590465501c68f6074))
+
 ## [1.0.1](https://github.com/cezar-r/finch/compare/v1.4.0...v1.0.1) (2024-10-18)
 
 
