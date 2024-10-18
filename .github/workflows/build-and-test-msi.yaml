@@ -28,24 +28,7 @@ jobs:
     name: Get tag name
     runs-on: ubuntu-latest
     outputs:
-      tag: ${{ steps.check-tag.outputs.tag }}
-      version: ${{ steps.check-tag.outputs.version }}
-    steps:
-      - name: Check tag from workflow input and github ref
-        id: check-tag
-        run: |
-          if [ -n "${{ inputs.ref_name }}" ]; then
-            tag=${{ inputs.ref_name }}
-          else
-            tag=${{ github.ref_name }}
-          fi
-          echo "tag=$tag" >> ${GITHUB_OUTPUT}
-
-          version=${tag#v}
-          if [[ $version =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Version matches format: $version"
-          else
-            echo "Version $version doesn't match format. Using test version: 0.0.1"
+      tag: ${{ steps.check-tagsing test version: 0.0.1"
             version="0.0.1"
           fi
           echo "version=$version" >> ${GITHUB_OUTPUT}
@@ -76,43 +59,8 @@ jobs:
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
         with:
-          role-to-assume: ${{ secrets.WINDOWS_ROLE }}
-          role-session-name: windows-msi
-          aws-region: ${{ secrets.WINDOWS_REGION }}
-      - name: Remove Finch VM
-        run: |
-          $ErrorActionPreference = 'Ignore'
-          taskkill /f /im wslservice.exe 2> nul || cmd /c "exit /b 0"
-          wsl --list --verbose
-          wsl --shutdown
-          wsl --unregister lima-finch
-          wsl --list --verbose
-      - name: Clean up previous files
-        run: |
-          takeown /F C:\actions-runner\_work\finch /R
-          Remove-Item C:\Users\Administrator\.finch -Recurse -ErrorAction Ignore
-          Remove-Item C:\Users\Administrator\AppData\Local\.finch -Recurse -ErrorAction Ignore
-          make clean
-          cd deps/finch-core && make clean
-      - name: Build project
-        run: |
-          make FINCH_OS_IMAGE_LOCATION_ROOT=__INSTALLFOLDER__
-      - name: generate and download signed msi
-        run: |
-          $version="${{ needs.get-tag-name.outputs.version }}"
-          $tag="${{ needs.get-tag-name.outputs.tag }}"
-          powershell .\msi-builder\BuildFinchMSI.ps1 -Version $version
-          $timestamp=[math]::truncate((Get-Date (Get-Date).ToUniversalTime() -UFormat "%s"))
-          $unsignedMSI="Finch-$tag-$timestamp.msi"
-          Write-Host "Upload unsigned MSI: $unsignedMSI"
 
-          aws s3 cp "./msi-builder/build/Finch-$version.msi" "${{ secrets.WINDOWS_UNSIGNED_BUCKET }}$unsignedMSI" --acl bucket-owner-full-control --no-progress
-          New-Item -Path "./msi-builder/build/signed/" -ItemType Directory -Force
-
-          Write-Host "Attemp to download signed MSI"
-          $retryCount = 0
-          $maxRetries = 20
-          $delay = 5
+          Write-Host "Attem
 
           while ($retryCount -lt $maxRetries) {
               Start-Sleep -Seconds $delay
