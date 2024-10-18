@@ -29,11 +29,9 @@ jobs:
   build:
     runs-on:
       [
-        self-hosted,
-        release,
-        '${{ inputs.os }}',
-        '${{ inputs.arch }}',
-        '${{ inputs.version }}',
+       macos-latest,
+       ubuntu-latest,
+       windows-latest
       ]
     timeout-minutes: 60
     steps:
