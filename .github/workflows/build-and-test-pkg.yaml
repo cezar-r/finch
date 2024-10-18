@@ -50,7 +50,7 @@ jobs:
     uses: ./.github/workflows/build-pkg.yaml
     secrets: inherit
     with:
-      os: macos
+      os: ubuntu
       arch: amd64
       output_arch: x86_64
       version: 14
