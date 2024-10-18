@@ -14,9 +14,9 @@ on:
       - '.github/workflows/e2e-linux.yaml'
       - 'contrib/packaging/**'
       - 'deps/**'
-      - 'finch.yaml.d/**'
+      - 'finch.yaml.d
       - 'winres'
-      - '!contrib/hello-finch/**'
+      - '!contrib/hell
   pull_request:
     branches:
       - main
