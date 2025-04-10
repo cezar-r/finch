@@ -2,6 +2,7 @@
 %global _buildid .1
 
 %global debug_package %{nil}
+%global unit_dir ../units
 
 # latest release/commit
 %global _finch_release 1.2.3
@@ -58,15 +59,15 @@ Source0: finch-%{finch_release}.tar.gz
 Source0: https://%{finch_package}/archive/%{finch_commit}/%{finch_release}.tar.gz
 %endif
 %endif
-Source1: finch.service
-Source2: finch.yaml
-Source3: nerdctl.toml
-Source4: buildkitd.toml
-Source5: finch-buildkit.service
-Source6: finch-buildkit.socket
-Source7: finch-soci.service
-Source8: finch-soci.socket
-Source9: soci-snapshotter-grpc.toml
+Source1: %{unit_dir}/finch.service
+Source2: %{unit_dir}/finch.yaml
+Source3: %{unit_dir}/nerdctl.toml
+Source4: %{unit_dir}/buildkitd.toml
+Source5: %{unit_dir}/finch-buildkit.service
+Source6: %{unit_dir}/finch-buildkit.socket
+Source7: %{unit_dir}/finch-soci.service
+Source8: %{unit_dir}/finch-soci.socket
+Source9: %{unit_dir}/soci-snapshotter-grpc.toml
 
 # buildkit
 Source1000: https://%{buildkit_package}/archive/%{buildkit_commit}/%{buildkit_src}.tar.gz
