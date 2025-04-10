@@ -1,0 +1,5 @@
+Package: finch
+Version: 1.7.1
+Architecture: ${ARCH}
+Maintainer: AWS todo@amazon.com
+Description: CLI Container Runtime
